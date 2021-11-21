@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+Input your training:
+
+<form action="/save_entry" method="POST">
+    Training day: <br>
+    <input type="date" name="date" value="2021-11-20">
+    <br>
+
+    Training: <br>
+    <textarea name="content" rows="20" cols="80"></textarea>
+    <br>
+    <input type="submit" value="Save">
+</form>
+
+
+Logged in as {{session.user}}
