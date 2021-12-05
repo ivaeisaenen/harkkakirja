@@ -6,11 +6,8 @@ User can create account and make training notes for example gym training.
 
 Training log can be pricate or public.
 
-Other user can view public logs and comment also.
 
-Maybe follows and notifications if there is time for that kind of stuff
-
-# Välipalautus 2
+# Välipalautus 3
 
 ## DONE
 
@@ -18,19 +15,17 @@ Maybe follows and notifications if there is time for that kind of stuff
 
 2. Add trainings and view trainings
 
-## TODO
+3. Reorganized whole code to separate python files
 
--Maybe short trainings by date
+4. Changed html so that text is inside header or paragraph tags
+
+5. Timestamps for user and trainings works now
+
+## TODO
 
 -Set trainings visible / hidden based user preference
 
--Search other people trainings
-
 -Remove trainings
-
--Maybe if time add ability to follow someone and see their newest trainings in front page "feed"
-
--Maybe also if there is time some front page features shown in index.html like see top trending trainings (based on views/followers)
 
 -Some security issues like CSRF haavoittuvuus lisäämällä:
 
