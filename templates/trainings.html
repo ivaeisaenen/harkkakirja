@@ -8,6 +8,6 @@
 <p>
 <ul>
     {% for training in trainings %}
-        <li>{{training.content}} {{training.workout_day}} sent_at: {{training.sent_at}}</li>
+        <li>{{training.content}} workout day: {{training.workout_day.strftime("%Y-%m-%d")}} Training logged: {{training.sent_at.strftime("%Y-%m-%d %H:%M:%S")}}</li>
     {% endfor %}
 </ul>

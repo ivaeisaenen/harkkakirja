@@ -25,7 +25,7 @@ def get_list(user_id):
     # check if user is trying to look own trainings
     current_user_id = users.get_user_id()
     if user_id == current_user_id:
-        sql = "SELECT content FROM trainings WHERE user_id=:user_id"
+        sql = "SELECT content, workout_day, sent_at FROM trainings WHERE user_id=:user_id"
         result_obj = db.session.execute(sql, {"user_id":user_id})
         trainings_list = result_obj.fetchall()
         return trainings_list
