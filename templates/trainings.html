@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 
-DOTO some check user is logged in
+<a href="/">Main page</a>
 <p>
-DOTO show trainings most recent first
+<a href="/entry">Add training</a>
 <p>
 {{session.username}} all {{training_count}} trainings:
 <p>
-<a href="/entry">Add training</a>
 <ul>
     {% for training in trainings %}
-        <li>{{training.content}}</li>
+        <li>{{training.content}} {{training.workout_day}} sent_at: {{training.sent_at}}</li>
     {% endfor %}
 </ul>

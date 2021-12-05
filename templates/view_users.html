@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+
+<a href="/">Main page</a>
+
+<h4>Users ({{ user_count }}):</h4>
+    {% for user in users %}
+        <p>{{ user.username }} registered: {{ user.registered3.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+    {% endfor %}

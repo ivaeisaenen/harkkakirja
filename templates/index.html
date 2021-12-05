@@ -10,50 +10,46 @@
     <a href="/trainings">View trainings</a>
 {% endif %}
 
-<h1>Most popular training logs:</h1>
-TODO list of users with links to trainings
-search public 3-5 most popular (most followed / viewed users)
+<!-- <h1>Most popular training logs:</h1>
+<p>TODO list of users with links to trainings
+search public 3-5 most popular (most followed / viewed users)</p>
 
 <h1>Trending workouts:</h1>
-TODO search most viewed workouts (maybe take account also followers)
+<p>TODO search most viewed workouts (maybe take account also followers)</p>
 
 <h1>Search users:</h1>
-TODO form to search users
-<form action="/search_users_result" method="POST">
+<p>TODO form to search users</p> -->
+
+<!-- <form action="/search_users_result" method="POST">
     Search users:
     <input type="text" name="name">
     <br>
     <input type="submit" value="Search">
-    </form>
+    </form> -->
 
 <!-- {% if user_search_results %} -->
 <!-- {% endif %} -->
 
-<h1>Login status:</h1>
-{% if session.username %}
-<p>You have logged in {{ session.username }}</p>
-<a href="/logout">Log out</a>
-{% else %}
-<form action="/login" method="POST">
-    <p>Tunnus:<br>
-    <input type="text" name="username"></p>
-    <p>Salasana:<br>
-    <input type="password" name="password"></p>
-    <input type="submit" value="Login">
-</form>
-<p>
-<form action="/register" method="POST">
-    <p>Tunnus:<br>
-    <input type="text" name="username"></p>
-    <p>Salasana:<br>
-    <input type="password" name="password"></p>
-    <input type="submit" value="Create">
-</form>
-{% endif %}
-
 <p>
 <h1>Users</h1>
-Number of users: {{ user_count }}
+<a href="/view_users">View all users</a>
+<h4>Newest users:</h4>
     {% for user in users %}
-        {{ user.username }}
+        <li>{{ user.username }} registered: {{ user.registered3.strftime("%Y-%m-%d %H:%M:%S") }}</li>
     {% endfor %}
+
+ <h1>Login status:</h1>
+    {% if session.username %}
+    <p>You have logged in {{ session.username }}</p>
+    <a href="/logout">Log out</a>
+    {% else %}
+    <form action="/login" method="POST">
+        <p>Tunnus:<br>
+        <input type="text" name="username"></p>
+        <p>Salasana:<br>
+        <input type="password" name="password"></p>
+        <input type="submit" value="Login">
+    </form>
+    <p>
+    <a href="/register">Register</a>
+    {% endif %}
