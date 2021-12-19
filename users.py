@@ -1,6 +1,7 @@
 """Users module"""
 from datetime import datetime
 # from os import error
+import secrets
 from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from db import db
@@ -18,6 +19,7 @@ def login(username, password):
     if check_password_hash(user.password, password):
         session["user_id"] = user.id
         session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
         return True
 
     return False

@@ -60,9 +60,6 @@ def get_new_trainings():
         result_obj = db.session.execute(sql, {"user_id":current_user_id, "public":True})
         trainings_list = result_obj.fetchall()
 
-    print(str(trainings_list))
-
-
     return trainings_list
 
 
@@ -73,34 +70,13 @@ def get_training(training_id: int):
 
     current_user_id = users.get_current_user_id()
 
-    sql = "SELECT id, user_id, topic, content, workout_day, sent_at FROM trainings WHERE id=:training_id AND (public=:public OR user_id=:user_id)"
+    # sql = "SELECT id, user_id, topic, content, workout_day, sent_at FROM trainings WHERE id=:training_id AND (public=:public OR user_id=:user_id)"
+    sql = "SELECT t.id, t.user_id, u.username, t.topic, t.content, t.workout_day, t.sent_at FROM trainings t LEFT JOIN users u ON u.id = t.user_id WHERE t.id=:training_id AND (t.public=:public OR t.user_id=:user_id)"
     result_obj = db.session.execute(sql, {"training_id":training_id, "public":True, "user_id":current_user_id})
     trainings_list = result_obj.fetchall()
     if len(trainings_list) == 1:
         return trainings_list[0]
-
     return False
-
-
-def get_training_comments(training_id: int):
-    """Get list of training comment based on training_id value from database TABLE trainingcomments"""
-
-    current_user_id = users.get_current_user_id()
-    if current_user_id is False:
-        return ["User not logged in"]
-    sql = "SELECT id, content, receiver, sender, sender_name, sent_at FROM trainingcomments WHERE receiver=:training_id ORDER BY sent_at"
-    result_obj = db.session.execute(sql, {"training_id":training_id})
-    training_comments_list = result_obj.fetchall()
-    return training_comments_list
-
-
-def get_training_viewings(training_id: int):
-    """Get viewings of trainings based on training_id value from database TABLE trainingviewings"""
-
-    sql = "SELECT id, training_id, viewer, viewed FROM trainingviewings WHERE training_id=:training_id"
-    result_obj = db.session.execute(sql, {"training_id":training_id})
-    training_viewings_list = result_obj.fetchall()
-    return training_viewings_list
 
 
 def check_if_training_exists(training_id: int):

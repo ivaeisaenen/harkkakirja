@@ -6,7 +6,7 @@
     <a href="/entry">Add training for {{session.username}}</a>
 {% endif %}
 
-<h1>Trainings of user {{trainername}}:</h1>
+<h1>Trainings of user {{training.username}}:</h1>
 <hr>
 <p>{{training.topic}} workout day: {{training.workout_day.strftime("%Y-%m-%d")}} Training logged: {{training.sent_at.strftime("%Y-%m-%d %H:%M:%S")}}</p>
 <p>{{training.content}}</p>
@@ -28,6 +28,7 @@
         <textarea name="content" rows="4" cols="80" required></textarea>
         <br>
         <input type="submit" value="Save">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 {% else %}
     <h1>Please, login to view comments and comment</h1>

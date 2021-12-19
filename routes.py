@@ -85,6 +85,10 @@ def save_entry():
     content = request.form["content"]
     date = request.form["date"]
 
+    if session["csrf_token"] != request.form["csrf_token"]:
+        return render_template("error.html",
+                error_message="Security error")
+
     if len(topic) > 160:
         return render_template("error.html",
                 error_message="Training entry topic longer than limit 160 characters")
@@ -155,17 +159,15 @@ def show_training(id):
         return render_template("error.html", error_message="Invalid training id")
 
     # user_info = users.get_user_info(id)
-    training = trainings.get_training(id)
-    if training is False:
+    training_ = trainings.get_training(id)
+    if training_ is False:
         return render_template("error.html", error_message="Failed to find training")
 
-    comments = trainings.get_training_comments(id)
-    viewings = trainings.get_training_viewings(id)
-    number_of_views = len(viewings)
-    userinfo = users.get_user_info(training["user_id"])
-    trainername = userinfo["username"]
+    comments_list = comments.get_training_comments(id)
+    viewings_list = viewings.get_training_viewings(id)
+    number_of_views = len(viewings_list)
 
-    return render_template("training.html", training=training, comments=comments, number_of_views=number_of_views, trainername=trainername)
+    return render_template("training.html", training=training_, comments=comments_list, number_of_views=number_of_views)
 
 
 @app.route("/leave_comment",methods=["GET", "POST"])
@@ -173,6 +175,11 @@ def leave_comment():
     """leave training comment"""
 
     if request.method == "POST":
+
+        if session["csrf_token"] != request.form["csrf_token"]:
+            return render_template("error.html",
+                    error_message="Security error")
+
         training_id_ = request.form["training_id"]
         training_id = int(training_id_)
         user_id = session["user_id"]

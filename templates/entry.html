@@ -15,6 +15,9 @@ Input your training:
     <textarea name="content" rows="20" cols="80" required></textarea>
     <br>
     <input type="submit" value="Save">
+
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
 </form>
 
 

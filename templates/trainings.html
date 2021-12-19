@@ -12,6 +12,6 @@
 <ul>
     {% for training in trainings %}
         <hr>
-        <li><a href="/training/{{training.id}}">{{training.topic}}</href> workout day: {{training.workout_day.strftime("%Y-%m-%d")}} Training logged: {{training.sent_at.strftime("%Y-%m-%d %H:%M:%S")}}</li>
+        <li><a href="/training/{{training.id}}">{{training.topic}}</href> </a> Workout day: {{training.workout_day.strftime("%Y-%m-%d")}} Training logged: {{training.sent_at.strftime("%Y-%m-%d %H:%M:%S")}}</li>
     {% endfor %}
 </ul>

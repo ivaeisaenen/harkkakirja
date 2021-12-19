@@ -2,6 +2,15 @@
 from db import db
 import users
 
+def get_training_viewings(training_id: int):
+    """Get viewings of trainings based on training_id value from database TABLE trainingviewings"""
+
+    sql = "SELECT id, training_id, viewer, viewed FROM trainingviewings WHERE training_id=:training_id"
+    result_obj = db.session.execute(sql, {"training_id":training_id})
+    training_viewings_list = result_obj.fetchall()
+    return training_viewings_list
+
+
 def add_user_info_viewing(user_id: int):
     """User info viewings data updated"""
     current_user_id = users.get_current_user_id()
