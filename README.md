@@ -6,6 +6,8 @@
 
 Käyttäjä voi luoda tunnukset ja kirjautua sisälle sekä tallentaa harjoituksia ja katsella niitä sekä kommentoida muiden harjoituksia.
 
+Käyttäjän tulee rekisteröityä jotta palvelun toiminnallisuudet ovat käytettävissä.
+
 # Lopullinen palautus
 
 ## DONE
@@ -23,9 +25,15 @@ Käyttäjä voi luoda tunnukset ja kirjautua sisälle sekä tallentaa harjoituks
 
 ## Jatkokehitysideoita
 
+-Valinta että näkyykö yksittäinen harjoitus tai käyttäjäntiedot jäi kiireessä tekemättä, helppo toteuttaa radio valintanapilla, mutta toisaalta miksi kirjoittaa harjoituksia webbiin jos ei niitä halua jakaa muiden vertaiskäyttäjien kanssa?
+
 -Harjoitusten ja käyttäjätiedon näkyvyys tulisi saattaa kaksivaiheiseksi siten että käyttäjä voi valita näkyykö tiedot vain itselle, rekisteröityneille käyttäjille vai koko Internetille
 
 -Harjoituksia tulisi voida poistaa ja muokata
+
+## Mietteitä
+
+-Web ohjelmoinnin alkeet olivat hakusessa niin tässä meni kohtuuttoman paljon aikaa perusasioissa
 
 
 
