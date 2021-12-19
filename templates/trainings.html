@@ -2,12 +2,16 @@
 
 <a href="/">Main page</a>
 <p>
-<a href="/entry">Add training</a>
+{% if session.username %}
+    <a href="/entry">Add training for {{session.username}}</a>
+{% endif %}
+
 <p>
 {{session.username}} all {{training_count}} trainings:
 <p>
 <ul>
     {% for training in trainings %}
-        <li>{{training.content}} workout day: {{training.workout_day.strftime("%Y-%m-%d")}} Training logged: {{training.sent_at.strftime("%Y-%m-%d %H:%M:%S")}}</li>
+        <hr>
+        <li><a href="/training/{{training.id}}">{{training.topic}}</href> workout day: {{training.workout_day.strftime("%Y-%m-%d")}} Training logged: {{training.sent_at.strftime("%Y-%m-%d %H:%M:%S")}}</li>
     {% endfor %}
 </ul>

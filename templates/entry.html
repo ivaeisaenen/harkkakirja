@@ -4,11 +4,15 @@ Input your training:
 
 <form action="/save_entry" method="POST">
     Training day: <br>
-    <input type="date" name="date" value="2021-11-20">
+    <input type="date" name="date" value="2021-11-20" required>
+    <br>
+
+    Topic: <br>
+    <textarea name="topic" rows="1" cols="80" required></textarea>
     <br>
 
     Training: <br>
-    <textarea name="content" rows="20" cols="80"></textarea>
+    <textarea name="content" rows="20" cols="80" required></textarea>
     <br>
     <input type="submit" value="Save">
 </form>

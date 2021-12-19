@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<a href="/">Main page</a>
+<p>{{user_info.username}} is registered {{user_info.registered3.strftime("%Y-%m-%d %H:%M:%S")}}</p>
+<p>{{user_info.username}}'s all {{training_count}} trainings:</p>
+
+<ul>
+    {% for training in trainings %}
+        <li><a href="/training/{{training.id}}">{{training.topic}}</href></a> workout day: {{training.workout_day.strftime("%Y-%m-%d")}} Training logged: {{training.sent_at.strftime("%Y-%m-%d %H:%M:%S")}}</li>
+    {% endfor %}
+</ul>
+
+<p>This page has been viewed by {{number_of_registered_views}} different registered users</p>

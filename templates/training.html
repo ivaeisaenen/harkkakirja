@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<a href="/">Main page</a>
+<p>
+{% if session.username %}
+    <a href="/entry">Add training for {{session.username}}</a>
+{% endif %}
+
+<h1>Trainings of user {{trainername}}:</h1>
+<hr>
+<p>{{training.topic}} workout day: {{training.workout_day.strftime("%Y-%m-%d")}} Training logged: {{training.sent_at.strftime("%Y-%m-%d %H:%M:%S")}}</p>
+<p>{{training.content}}</p>
+<p>Views: {{number_of_views}}</p>
+
+<hr>
+
+{% if session.username %}
+    <h1>Comments:</h1>
+    <p>
+        {% for comment in comments %}
+            <li><p>{{comment.content}}</p> <p> <a href="/user_info/{{comment.sender}}">{{comment.sender_name}} </a> {{comment.sent_at.strftime("%Y-%m-%d %H:%M:%S")}}</p></li>
+        {% endfor %}
+    <p>
+
+    <h1>Leave a comment:</h1>
+    <form action="/leave_comment" method="POST">
+        <input type="hidden" name="training_id" value="{{training.id}}">
+        <textarea name="content" rows="4" cols="80" required></textarea>
+        <br>
+        <input type="submit" value="Save">
+    </form>
+{% else %}
+    <h1>Please, login to view comments and comment</h1>
+{% endif %}

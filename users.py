@@ -1,9 +1,9 @@
-"""users module"""
+"""Users module"""
 from datetime import datetime
-from os import error
-from db import db
+# from os import error
 from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
+from db import db
 
 def login(username, password):
     """Copied from course materials
@@ -14,13 +14,13 @@ def login(username, password):
     user = result.fetchone()
     if not user:
         return False
-    else:
-        if check_password_hash(user.password, password):
-            session["user_id"] = user.id
-            session["username"] = username
-            return True
-        else:
-            return False
+
+    if check_password_hash(user.password, password):
+        session["user_id"] = user.id
+        session["username"] = username
+        return True
+
+    return False
 
 
 def register(username, password):
@@ -31,25 +31,34 @@ def register(username, password):
     current_time_str = str(datetime.now())
     print(f"current_time_str = {current_time_str}")
     try:
-        sql = "INSERT INTO users (username, password, registered1, registered2, registered3) VALUES (:username, :password, :registered1, :registered2, NOW())"
-        db.session.execute(sql, {"username":username, "password":hash_value, "registered1":current_time_str, "registered2":current_time_str})
+        sql = "INSERT INTO users (username, password, registered1, \
+            registered2, registered3, public) VALUES (:username, :password, \
+            :registered1, :registered2, NOW(), :public)"
+        db.session.execute(sql, {"username":username, "password":hash_value,
+            "registered1":current_time_str, "registered2":current_time_str, "public":True})
         db.session.commit()
-    except Exception as e:
-        print(f"Failed to register user because: {e}")
+    except Exception as expection_:
+        print(f"Failed to register user because: {expection_}")
         return False
     return True
 
+
 def get_new_users_list():
     """Get 5 newest users list from database"""
-    result_obj = db.session.execute("SELECT username, registered3 FROM users ORDER BY registered1 LIMIT 5")
+    sql = "SELECT id, username, registered3 FROM users WHERE public=:public \
+        ORDER BY registered3 LIMIT 5"
+    result_obj = db.session.execute(sql, {"public":True})
     new_users_list = result_obj.fetchall()
     return new_users_list
 
+
 def get_users_list():
-    """Get users list from database"""
-    result_obj = db.session.execute("SELECT username, registered3 FROM users")
+    """Get users list from database where public is True"""
+    sql = "SELECT username, registered3, id FROM users WHERE public=:public"
+    result_obj = db.session.execute(sql, {"public":True})
     all_users_list = result_obj.fetchall()
     return all_users_list
+
 
 def logout():
     """Logout user"""
@@ -58,6 +67,28 @@ def logout():
     if "username" in session:
         del session["username"]
 
-def get_user_id():
+
+def get_current_user_id():
+    """Get current user id from session"""
     user_id = session.get("user_id", False)
     return user_id
+
+
+def get_user_info(user_id):
+    """Get user info based on user id"""
+
+    current_user_id = get_current_user_id()
+
+    if user_id == current_user_id:
+        sql = "SELECT id, username, registered3, id FROM users WHERE id=:user_id"
+        result_obj = db.session.execute(sql, {"user_id":user_id})
+        user_info = result_obj.fetchall()
+
+    elif user_id != current_user_id:
+        sql = "SELECT id, username, registered3, id FROM users WHERE id=:user_id AND public=:public"
+        result_obj = db.session.execute(sql, {"user_id":user_id, "public":True})
+        user_info = result_obj.fetchall()
+
+    if len(user_info) == 1 and "id" in user_info[0].keys():
+        return user_info[0]
+    return False

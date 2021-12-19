@@ -4,5 +4,5 @@
 
 <h4>Users ({{ user_count }}):</h4>
     {% for user in users %}
-        <p>{{ user.username }} registered: {{ user.registered3.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+        <li><a href="/user_info/{{user.id}}">{{ user.username }} </a> registered: {{ user.registered3.strftime("%Y-%m-%d %H:%M:%S") }}</li>
     {% endfor %}
