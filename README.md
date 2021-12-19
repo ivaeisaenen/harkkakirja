@@ -4,14 +4,13 @@
 
 User can create account and make training notes for example gym training.
 
-Training log can be pricate or public.
+Training log can be private or public. Public is visible for other user.
 
-
-# Välipalautus 3
+# Lopullinen palautus
 
 ## DONE
 
-1. Now you can make new user accounts and log in 
+1. Now you can make new user accounts and log in
 
 2. Add trainings and view trainings
 
@@ -21,19 +20,15 @@ Training log can be pricate or public.
 
 5. Timestamps for user and trainings works now
 
+6. views count
+
+7. Comments for trainings
+
 ## TODO
 
--Set trainings visible / hidden based user preference
+-Set trainings visible / hidden based user preference for other users or general public
 
--Remove trainings
-
--Some security issues like CSRF haavoittuvuus lisäämällä:
-
---session["csrf_token"] = secrets.token_hex(16)
-
---<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-
---if session["csrf_token"] != request.form["csrf_token"]:
+-Remove or edit trainings
 
 [Harkkakirja Heroku application](https://harkkakirja.herokuapp.com/)
 
