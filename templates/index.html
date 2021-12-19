@@ -3,29 +3,32 @@
 <h1>Training log</h1>
 
 {% if session.username %}
-    <h1>Welcome {{session.username}}</h1>
+    <h2>Welcome {{session.username}}</h2>
     <a href="/entry">Add training</a>
 
-    <h1>View your training history:</h1>
+    <h2>View your training history:</h2>
     <a href="/trainings">View trainings</a>
+
+
+    <h2>Newest training entries:</h2>
+    <ul>
+        {% for training in new_trainings_list %}
+            <li><a href="/training/{{training.id}}">{{training.topic}} </a>    <a href="/user_info/{{training.user_id}}">{{training.username}} </a> {{training.workout_day.strftime("%Y-%m-%d")}}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Newest users:</h2>
+    <ul>
+        {% for user in users %}
+            <li><a href="/user_info/{{user.id}}">{{ user.username }} </a> registered: {{ user.registered3.strftime("%Y-%m-%d %H:%M:%S") }}</li>
+        {% endfor %}
+    </ul>
+
+
+    <h2>Users</h2>
+    <a href="/view_users">View all users</href> </a>
+
 {% endif %}
-
-<h2>Newest training entries:</h2>
-<ul>
-    {% for training in new_trainings_list %}
-        <li><a href="/training/{{training.id}}">{{training.topic}} </a>    <a href="/user_info/{{training.user_id}}">{{training.username}} </a> {{training.workout_day.strftime("%Y-%m-%d")}}</li>
-    {% endfor %}
-</ul>
-
-<h2>Newest users:</h2>
-<ul>
-    {% for user in users %}
-        <li><a href="/user_info/{{user.id}}">{{ user.username }} </a> registered: {{ user.registered3.strftime("%Y-%m-%d %H:%M:%S") }}</li>
-    {% endfor %}
-</ul>
-
-<h2>Users</h2>
-<a href="/view_users">View all users</href> </a>
 
  <h3>Login status:</h3>
     {% if session.username %}

@@ -7,9 +7,7 @@ def save_training_comment(user_id, training_id, content):
     """Save training comment to database"""
 
     user_id_ = users.get_current_user_id()
-    if user_id is False:
-        return False
-    elif user_id != user_id_:
+    if user_id is False or user_id != user_id_:
         return False
 
     userinfo = users.get_user_info(user_id)
@@ -32,12 +30,14 @@ def save_training_comment(user_id, training_id, content):
 
 
 def get_training_comments(training_id: int):
-    """Get list of training comment based on training_id value from database TABLE trainingcomments"""
+    """Get list of training comment based on training_id value from database
+    TABLE trainingcomments"""
 
     current_user_id = users.get_current_user_id()
     if current_user_id is False:
         return ["User not logged in"]
-    sql = "SELECT id, content, receiver, sender, sender_name, sent_at FROM trainingcomments WHERE receiver=:training_id ORDER BY sent_at"
+    sql = "SELECT id, content, receiver, sender, sender_name, sent_at FROM trainingcomments WHERE \
+            receiver=:training_id ORDER BY sent_at"
     result_obj = db.session.execute(sql, {"training_id":training_id})
     training_comments_list = result_obj.fetchall()
     return training_comments_list

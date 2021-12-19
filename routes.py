@@ -12,7 +12,8 @@ def index():
     new_users_list = users.get_new_users_list()
     new_trainings_list = trainings.get_new_trainings()
 
-    return render_template("index.html", user_count=len(new_users_list), users=new_users_list, new_trainings_list=new_trainings_list)
+    return render_template("index.html", user_count=len(new_users_list), users=new_users_list,
+                            new_trainings_list=new_trainings_list)
 
 
 @app.route("/view_users")
@@ -75,6 +76,9 @@ def logout():
 @app.route("/entry")
 def entry():
     """Entry new training page render"""
+    if users.get_current_user_id() is False:
+        return render_template("error.html",
+                error_message="Please log in to entry training")
     return render_template("entry.html")
 
 
@@ -109,13 +113,9 @@ def save_entry():
 def show_trainings():
     """Render trainings page showing all user trainings"""
 
-    # trainings = ["training_string_dummy1", "training_string_dummy2", "training_string_dummy3"]
-    # training_count="3"
-
-    # user_id = session["user_id"]
-    # sql = "SELECT content FROM trainings WHERE user_id=:user_id"
-    # result_obj = db.session.execute(sql, {"user_id":user_id})
-    # trainings = result_obj.fetchall()
+    if users.get_current_user_id() is False:
+        return render_template("error.html",
+                error_message="Please log in to see user info")
 
     user_id = session["user_id"]
     trainings_list = trainings.get_list(user_id)
@@ -127,47 +127,60 @@ def show_trainings():
             training_count=len(trainings_list), trainings=trainings_list)
 
 
-@app.route("/user_info/<int:id>")
-def user_info(id):
+@app.route("/user_info/<int:id_>")
+def user_info(id_):
     """Render user info page"""
 
-    # Add view to viewings
-    viewings.add_user_info_viewing(id)
+    if users.get_current_user_id() is False:
+        return render_template("error.html",
+                error_message="Please log in to see user info")
 
-    user_info = users.get_user_info(id)
-    if user_info is False:
+    # Add view to viewings
+    viewings.add_user_info_viewing(id_)
+
+    user_info_ = users.get_user_info(id_)
+    if user_info_ is False:
         return render_template("error.html",
                 error_message="Failed to get user info")
 
-    trainings_list = trainings.get_list(id)
+    trainings_list = trainings.get_list(id_)
     if trainings_list is False:
         return render_template("error.html",
                 error_message="Failed to get trainings list")
 
 
-    registered_viewings = viewings.get_user_info_viewings(id, only_registered_users=True)
+    registered_viewings = viewings.get_user_info_viewings(id_, only_registered_users=True)
     number_of_registered_views = len(registered_viewings)
 
-    return render_template("user_info.html", user_info=user_info, training_count=len(trainings_list), trainings=trainings_list, number_of_registered_views=number_of_registered_views)
+    return render_template("user_info.html", user_info=user_info_,
+        training_count=len(trainings_list), trainings=trainings_list,
+        number_of_registered_views=number_of_registered_views)
 
 
-@app.route("/training/<int:id>")
-def show_training(id):
+@app.route("/training/<int:id_>")
+def show_training(id_):
     """Render individual training page"""
 
-    if id is None:
+    if id_ is None:
         return render_template("error.html", error_message="Invalid training id")
 
+    if users.get_current_user_id() is False:
+        return render_template("error.html",
+                error_message="Please log in to see training")
+
+    viewings.add_training_viewing(id_)
+
     # user_info = users.get_user_info(id)
-    training_ = trainings.get_training(id)
+    training_ = trainings.get_training(id_)
     if training_ is False:
         return render_template("error.html", error_message="Failed to find training")
 
-    comments_list = comments.get_training_comments(id)
-    viewings_list = viewings.get_training_viewings(id)
+    comments_list = comments.get_training_comments(id_)
+    viewings_list = viewings.get_training_viewings(id_)
     number_of_views = len(viewings_list)
 
-    return render_template("training.html", training=training_, comments=comments_list, number_of_views=number_of_views)
+    return render_template("training.html", training=training_, comments=comments_list,
+            number_of_views=number_of_views)
 
 
 @app.route("/leave_comment",methods=["GET", "POST"])
@@ -182,7 +195,8 @@ def leave_comment():
 
         training_id_ = request.form["training_id"]
         training_id = int(training_id_)
-        user_id = session["user_id"]
+
+        user_id = users.get_current_user_id()
         if user_id is False:
             return render_template("error.html",
                     error_message="Failed to get user id! Please login.")
@@ -192,5 +206,5 @@ def leave_comment():
                     error_message="Comment entry longer than limit 10000 characters")
         resp = comments.save_training_comment(user_id, training_id, content)
         if resp is False:
-             return render_template("error.html", error_message="Failed to leave a comment")
+            return render_template("error.html", error_message="Failed to leave a comment")
     return redirect(f"/training/{training_id}")

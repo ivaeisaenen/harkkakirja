@@ -2,7 +2,9 @@
 
 <a href="/">Main page</a>
 
-<h4>Users ({{ user_count }}):</h4>
+<h2>Users ({{ user_count }}):</h2>
+<ul>
     {% for user in users %}
         <li><a href="/user_info/{{user.id}}">{{ user.username }} </a> registered: {{ user.registered3.strftime("%Y-%m-%d %H:%M:%S") }}</li>
     {% endfor %}
+</ul>
