@@ -33,7 +33,7 @@ Käyttäjän tulee rekisteröityä jotta palvelun toiminnallisuudet ovat käytet
 
 ## Mietteitä
 
--Web ohjelmoinnin alkeet olivat hakusessa niin tässä meni kohtuuttoman paljon aikaa perusasioissa
+-Web ohjelmoinnin alkeet olivat hakusessa niin tässä meni kohtuuttoman paljon aikaa perusasioissa mutta ensikerralla tulee hienompi.
 
 
 
