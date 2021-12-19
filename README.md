@@ -1,34 +1,31 @@
 # harkkakirja
 
-# Training log web application
+[Harkkakirja Heroku application](https://harkkakirja.herokuapp.com/)
 
-User can create account and make training notes for example gym training.
+# Harjoituspäiväkirja
 
-Training log can be private or public. Public is visible for other user.
+Käyttäjä voi luoda tunnukset ja kirjautua sisälle sekä tallentaa harjoituksia ja katsella niitä sekä kommentoida muiden harjoituksia.
 
 # Lopullinen palautus
 
 ## DONE
 
-1. Now you can make new user accounts and log in
+1. Voi rekisteröityä ja kirjautua
 
-2. Add trainings and view trainings
+2. Luoda harjoituksia ja katsella sekä kommentoida
 
-3. Reorganized whole code to separate python files
+3. Yksittäisten rekisteröityneiden käyttäjien katselukerrat näkyvissä käyttäjille
 
-4. Changed html so that text is inside header or paragraph tags
+4. Harjoituksille kaikki kyseisen sivun latauskerrat
 
 5. Timestamps for user and trainings works now
 
-6. views count
 
-7. Comments for trainings
+## Jatkokehitysideoita
 
-## TODO
+-Harjoitusten ja käyttäjätiedon näkyvyys tulisi saattaa kaksivaiheiseksi siten että käyttäjä voi valita näkyykö tiedot vain itselle, rekisteröityneille käyttäjille vai koko Internetille
 
--Set trainings visible / hidden based user preference for other users or general public
+-Harjoituksia tulisi voida poistaa ja muokata
 
--Remove or edit trainings
 
-[Harkkakirja Heroku application](https://harkkakirja.herokuapp.com/)
 
