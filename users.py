@@ -48,7 +48,7 @@ def register(username, password):
 def get_new_users_list():
     """Get 5 newest users list from database"""
     sql = "SELECT id, username, registered3 FROM users WHERE public=:public \
-        ORDER BY registered3 LIMIT 5"
+        ORDER BY registered3 DESC LIMIT 5"
     result_obj = db.session.execute(sql, {"public":True})
     new_users_list = result_obj.fetchall()
     return new_users_list

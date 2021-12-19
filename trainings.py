@@ -48,13 +48,13 @@ def get_new_trainings():
     if current_user_id is False:
         sql = "SELECT t.id, t.user_id, u.username, t.topic, t.content, t.workout_day, t.sent_at \
                 FROM trainings t LEFT JOIN users u ON t.user_id = u.id WHERE t.public=:public \
-                ORDER BY t.sent_at LIMIT 3"
+                ORDER BY t.sent_at DESC LIMIT 3"
         result_obj = db.session.execute(sql, {"public":True})
         trainings_list = result_obj.fetchall()
     else:
         sql = "SELECT t.id, t.user_id, u.username, t.topic, t.content, t.workout_day, t.sent_at \
                 FROM trainings t LEFT JOIN users u ON t.user_id = u.id WHERE t.user_id=:user_id \
-                OR t.public=:public ORDER BY t.sent_at LIMIT 3"
+                OR t.public=:public ORDER BY t.sent_at DESC LIMIT 3"
         result_obj = db.session.execute(sql, {"user_id":current_user_id, "public":True})
         trainings_list = result_obj.fetchall()
 
